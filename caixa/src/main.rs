@@ -28,11 +28,9 @@ impl Caixa {
 fn main() {
     println!("Inicie o seu caixa");
 
-    let mut entrada = String::new();
+    let entrada = io_input();
 
-    io_input(&mut entrada);
-
-    let entrada: f64 = entrada.trim().parse().unwrap();
+    let entrada: f64 = entrada.parse().unwrap();
 
     let mut caixa = Caixa {
         entrada,
@@ -46,20 +44,14 @@ fn main() {
         println!("3: Ver dados gerais");
         println!("q: sair");
 
-        let mut escolha = String::new();
-
-        io_input(&mut escolha);
-
-        let escolha = escolha.trim();
+        let escolha = io_input();
 
         if escolha == "1" {
             println!("Valor da saida:");
 
-            let mut saida = String::new();
+            let saida = io_input();
 
-            io_input(&mut saida);
-
-            let saida: f64 = saida.trim().parse().unwrap();
+            let saida: f64 = saida.parse().unwrap();
 
             caixa.adicionar_saida(saida);
         }
@@ -67,11 +59,9 @@ fn main() {
         if escolha == "2" {
             println!("Valor da entrada:");
 
-            let mut entrada = String::new();
+            let entrada = io_input();
 
-            io_input(&mut entrada);
-
-            let entrada: f64 = entrada.trim().parse().unwrap();
+            let entrada: f64 = entrada.parse().unwrap();
 
             caixa.adicionar_entrada(entrada);
         }
@@ -86,8 +76,12 @@ fn main() {
     }
 }
 
-fn io_input(input: &mut String) {
+fn io_input() -> String {
+    let mut entrada = String::new();
+
     io::stdin()
-        .read_line(input)
+        .read_line(&mut entrada)
         .expect("Falha ao ler a linha");
+
+    String::from(entrada.trim())
 }
