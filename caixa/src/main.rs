@@ -1,29 +1,7 @@
 use std::io;
+use crate::financeiro::fluxo::Caixa;
 
-struct Caixa {
-    saldo: f64,
-    saida: f64,
-    entrada: f64
-}
-
-impl Caixa {
-    fn adicionar_saida(&mut self, valor: f64) {
-        self.saldo -= valor;
-        self.saida += valor;
-    }
-    fn adicionar_entrada(&mut self, valor: f64) {
-        self.saldo += valor;
-        self.entrada += valor;
-    }
-    fn dados_gerais(&self) -> String {
-        format!(
-            "O seu saldo e de {}, total de entradas é {} e total de saida é {}",
-            self.saldo.to_string(),
-            self.entrada.to_string(),
-            self.saida.to_string()
-        )
-    }
-}
+pub mod financeiro;
 
 fn main() {
     println!("Inicie o seu caixa");
