@@ -5,15 +5,17 @@ use csv::Reader;
 use std::env;
 use std::error::Error;
 use std::fs::File;
+use std::io::BufReader;
 pub struct Setup {
-    pub file_open_csv: Reader<File>,
+    pub file_open_csv: Reader<BufReader<File>>,
 }
 
 impl Setup {
     pub fn run() -> Result<Setup, Box<dyn Error>> {
-        let args: Vec<String> = env::args().collect();
-        let file_parameter: &String = &args[1];
-        let file_open_csv = csvmanager::read_file_csv(file_parameter)?;
+        let mut args = env::args();
+        args.next();
+        let file_parameter = args.next().unwrap();
+        let file_open_csv = csvmanager::read_file_csv(&*file_parameter)?;
 
         Ok(Setup { file_open_csv })
     }

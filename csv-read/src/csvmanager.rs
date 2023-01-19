@@ -3,11 +3,13 @@ use csv::StringRecord;
 use csv::Writer;
 use std::fs::File;
 use std::fs::OpenOptions;
+use std::io::BufReader;
 use std::io::Error;
+use std::path::Path;
 
-pub fn read_file_csv(path: &str) -> Result<Reader<File>, Error> {
-    let file_open_csv = File::open(path)?;
-    let data = Reader::from_reader(file_open_csv);
+pub fn read_file_csv(path: &str) -> Result<Reader<BufReader<File>>, Error> {
+    let file_open_csv = File::open(Path::new(path))?;
+    let data = Reader::from_reader(BufReader::new(file_open_csv));
     Ok(data)
 }
 
